@@ -12,6 +12,8 @@ interface CreateFormData {
 }
 
 export const CreateForm = () => {
+    const [user] = useAuthState(auth);
+
     const schema = yup.object().shape({
         title: yup.string().required("You must add a title."),
         description: yup.string().required("You must add a description."),
@@ -21,9 +23,14 @@ export const CreateForm = () => {
         resolver: yupResolver(schema)
     })
 
-    const onCreatePost = (data: any) => {
-        console.log(data);
+    const postRef = collection(db, "posts")
 
+    const onCreatePost = async (data: CreateFormData) => {
+        await addDoc(postRef, {
+            ...data,
+            username: user?.displayName,
+            id: user?.uid,
+        })
     }
 
     return (
