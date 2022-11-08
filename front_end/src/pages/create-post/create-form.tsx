@@ -2,13 +2,19 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+
+interface CreateFormData {
+    title: string;
+    description: string;
+}
+
 export const CreateForm = () => {
     const schema = yup.object().shape({
         title: yup.string().required("You must add a title."),
         description: yup.string().required("You must add a description."),
     })
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit } = useForm<CreateFormData>({
         resolver: yupResolver(schema)
     })
 
