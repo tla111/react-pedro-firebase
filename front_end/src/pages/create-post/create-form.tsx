@@ -3,6 +3,10 @@ import * as yup from "yup";
 
 export const CreateForm = () => {
     return (
-        <form></form>
+        <form>
+            <input placeholder="Title..." />
+            <input placeholder="Description..." />
+            <input type="submit" />
+        </form>
     )
 }
