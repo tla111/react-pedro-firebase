@@ -28,8 +28,22 @@ export const Post = (props: Props) => {
     }
 
     const addLike = async () => {
-        await addDoc(likesRef, { userId: user?.uid, postId: post.id })
-    }
+        try {
+            const newDoc = await addDoc(likesRef, {
+                userId: user?.uid,
+                postId: post.id,
+            });
+            if (user) {
+                setLikes((prev) =>
+                    prev
+                        ? [...prev, { userId: user.uid, likeId: newDoc.id }]
+                        : [{ userId: user.uid, likeId: newDoc.id }]
+                );
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const hasUserLiked = likes?.find((like) => like.userId === user?.uid)
 
