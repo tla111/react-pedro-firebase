@@ -1,5 +1,12 @@
 import { getDocs, collection } from 'firebase/firestore'
+import { db } from '../config/firebase'
 
 export const Main = () => {
-    return <div>Main Page</div>
+    const postsRef = collection(db, "posts")
+
+    return (
+        <div>
+
+        </div>
+    )
 }
