@@ -1,3 +1,6 @@
+import { addDoc, collection } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth, db } from '../../config/firebase'
 import { Post as IPost } from './main'
 
 interface Props {
@@ -6,6 +9,13 @@ interface Props {
 
 export const Post = (props: Props) => {
     const { post } = props
+    const [user] = useAuthState(auth)
+
+    const likesRef = collection(db, "likes")
+
+    const addLike = async () => {
+        await addDoc(likesRef, { userId: user?.uid, postId: post.id })
+    }
     return (
         <div>
             <div className="title">
@@ -16,7 +26,7 @@ export const Post = (props: Props) => {
             </div>
             <div className="footer">
                 <p>@{post.username}</p>
-                <button>Like</button>
+                <button onClick={addLike}>Like</button>
             </div>
         </div>
     )
