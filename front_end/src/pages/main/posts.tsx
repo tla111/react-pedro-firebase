@@ -14,8 +14,9 @@ export const Post = (props: Props) => {
             <div className="body">
                 <p>{post.description}</p>
             </div>
-            <div className="">
+            <div className="footer">
                 <p>@{post.username}</p>
+                <button>Like</button>
             </div>
         </div>
     )
